@@ -6,11 +6,13 @@ defmodule MangleBot.Application do
   use Application
 
   def start(_type, _args) do
+
+    import Supervisor.Spec
+
+    slack_token = Application.get_env(:mangle_bot, MangleBot.Slack)[:token]
+
     # List all child processes to be supervised
-    children = [
-      # Starts a worker by calling: MangleBot.Worker.start_link(arg)
-      # {MangleBot.Worker, arg},
-    ]
+    children = [worker(MangleBot.Slack, [slack_token, :whatever])]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
