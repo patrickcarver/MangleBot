@@ -9,10 +9,10 @@ defmodule MangleBot.Application do
 
     import Supervisor.Spec
 
-    slack_token = Application.get_env(:mangle_bot, MangleBot.Slack)[:token]
+    slack_token = Application.get_env(:mangle_bot, MangleBot)[:token]
 
     # List all child processes to be supervised
-    children = [worker(MangleBot.Slack, [slack_token, :whatever])]
+    children = [worker(MangleBot, [slack_token, :whatever])]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
